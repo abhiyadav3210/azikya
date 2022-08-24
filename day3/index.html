@@ -1,0 +1,204 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todoapp</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: teal;
+            text-decoration: underline;
+        }
+        
+        #container {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        #for>form {
+            width: auto;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+        
+        #form {
+            display: grid;
+            gap: 2px;
+            padding: 10px 30px;
+        }
+        
+        #sub {
+            background-color: teal;
+            color: white;
+            font-weight: bolder;
+            border: 0px;
+            border-radius: 10px;
+            padding: 4px 5px;
+        }
+        
+        #tab {
+            width: auto;
+        }
+        
+        thead {
+            background-color: teal;
+            color: white;
+            text-align: center;
+        }
+        
+        .td {
+            padding: 10px 50px;
+        }
+        
+        #app>tr>td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>TODO APP</h1>
+    <div id="container">
+
+        <div id="for">
+            <form action="" id="form">
+                <label>Task Name</label>
+                <br>
+                <input type="text" id="name" placeholder="Enter Task Name" required>
+                <br>
+
+                <label>Priority</label>
+                <br>
+                <select id="prio" required>
+            <option value="">Select Priority</option>
+            <option value="High" id="high" >High</option>
+            <option value="Low" id="low">Low</option>
+        </select>
+                <br>
+                <div id="err" style="color: red; display: none;">!feild is empty</div>
+                <input type="submit" id="sub">
+                <input type="submit" id="save" value="Save" style="display:none ;">
+            </form>
+        </div>
+        <div id="tab">
+            <table>
+                <thead>
+                    <td class="td">Task</td>
+                    <td class="td">Priority</td>
+                    <td class="td">Edit</td>
+                    <td class="td">Delete</td>
+                </thead>
+                <tbody id="app">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $("#sub").click(getting)
+        let arr = JSON.parse(localStorage.getItem("data")) || []
+
+        function getting(event) {
+            event.preventDefault()
+
+            let name = $("#name").val()
+            let prio = $("#prio").val()
+            if (name == "" || prio == "") {
+                $("#err").css("display", "block ")
+                return false
+            } else {
+                $("#err").css("display", "none ")
+                let obj = {
+                    name: name,
+                    prio: prio
+                };
+                arr.push(obj)
+                localStorage.setItem("data", JSON.stringify(arr))
+                display(arr)
+            }
+        }
+        display(arr)
+
+        function display(arr) {
+
+            $("#app").html("")
+            arr.forEach(function(ele, index) {
+                let row = $(document.createElement("tr"))
+                let col1 = $(document.createElement("td"))
+                $(col1).text(ele.name)
+
+                let col2 = document.createElement("td")
+
+                $(col2).text(ele.prio)
+                if (col2.innerText == "High") {
+
+                    $(col2).css("background", "red")
+
+                } else {
+
+                    $(col2).css("background", "green")
+                }
+                let col3 = document.createElement("td")
+                    // col3.innerText = "Delete"
+                $(col3).text("Delete")
+
+                $(col3).css("color", "red")
+
+                $(col3).attr("id", "del")
+                $(col3).click(function() {
+                    del(index)
+                })
+
+                let col4 = document.createElement("td")
+
+                $(col4).text("Edit")
+
+                $(col4).click(function() {
+                    editting(ele, index)
+                })
+                row.append(col1, col2, col4, col3)
+
+                $("#app").append(row)
+
+            });
+        }
+
+        function del(index) {
+            arr.splice(index, 1)
+            display(arr)
+            localStorage.setItem("data", JSON.stringify(arr))
+        }
+
+
+        function editting(ele, index) {
+            $("#name").val(ele.name)
+            $("#save").css("display", "block")
+            $("#sub").css("display", "none")
+
+            $("#save").click(function() {
+                event.preventDefault()
+                let newval = $("#name").val()
+                console.log(newval);
+                console.log(index);
+                arr[index].name = newval
+                console.log(arr[index].name);
+                console.log(arr);
+                display(arr)
+                localStorage.setItem("data", JSON.stringify(arr))
+                $("#save").css("display", "none")
+                $("#sub").css("display", "block")
+
+            })
+        }
+    })
+</script>

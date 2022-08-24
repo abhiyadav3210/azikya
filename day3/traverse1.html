@@ -1,0 +1,76 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        #container>div>img {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="one">
+            <img src="https://cdn.motor1.com/images/mgl/mrz1e/s3/coolest-cars-feature.jpg" alt="">
+        </div>
+        <div id="two">
+            <img src="https://imageio.forbes.com/specials-images/imageserve/5f962df3991e5636a2f68758/0x0.jpg?format=jpg&crop=812,457,x89,y103,safe&width=1200" alt="">
+        </div>
+        <div id="three">
+            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2022-chevrolet-corvette-z06-1607016574.jpg?crop=0.737xw:0.738xh;0.181xw,0.218xh&resize=640:*" alt="">
+        </div>
+        <div id="four">
+            <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGNhcnN8ZW58MHx8MHx8&w=1000&q=80" alt="">
+        </div>
+        <div id="five">
+            <img src="https://ichef.bbci.co.uk/news/976/cpsprodpb/BE5A/production/_123303784_gettyimages-524191066.jpg" alt="">
+        </div>
+        <div id="six">
+            <img src="https://imgd.aeplcdn.com/0x0/n/cw/ec/106785/exterior-right-front-three-quarter-2.jpeg?isig=0" alt="">
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $("#container ").children("#one").click(function() {
+            $("#one img").attr("src", "https://imageio.forbes.com/specials-images/imageserve/5f962df3991e5636a2f68758/0x0.jpg?format=jpg&crop=812,457,x89,y103,safe&width=1200")
+            console.log("wee");
+
+        })
+
+        $("#one").next().click(function() {
+            $("#two img").attr("src", "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2022-chevrolet-corvette-z06-1607016574.jpg?crop=0.737xw:0.738xh;0.181xw,0.218xh&resize=640:*")
+        })
+        $("#two").next().click(function() {
+            $("#three img").attr("src", "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGNhcnN8ZW58MHx8MHx8&w=1000&q=80")
+        })
+
+        $("#three").next().click(function() {
+            $("#four img").attr("src", "https://ichef.bbci.co.uk/news/976/cpsprodpb/BE5A/production/_123303784_gettyimages-524191066.jpg")
+        })
+
+        $("#four").next().click(function() {
+            $("#five img").attr("src", "https://imgd.aeplcdn.com/0x0/n/cw/ec/106785/exterior-right-front-three-quarter-2.jpeg?isig=0")
+        })
+
+        $("#five").next().click(function() {
+            $("#six img").attr("src", "https://cdn.motor1.com/images/mgl/mrz1e/s3/coolest-cars-feature.jpg")
+        })
+    })
+</script>

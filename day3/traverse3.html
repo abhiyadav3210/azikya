@@ -1,0 +1,38 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="main_outer">
+        <h2>outer</h2>
+        <div id="inner">
+            <h2>inner</h2>
+            <div>A</div>
+            <div>B</div>
+            <div id="child_c">C</div>
+            <div>D</div>
+            <div>E</div>
+            <div class="tests">F</div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#child_c").siblings().css("background", "teal")
+
+        $("#child_c").siblings("h2").css("color", "gold")
+        $("#child_c").siblings(".tests").css("color", "purple")
+
+        $("#child_c").next().css("color", "blue")
+
+    })
+</script>
