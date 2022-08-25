@@ -68,7 +68,7 @@
                 <br>
                 <input type="text" id="name" placeholder="Enter Task Name" required>
                 <br>
-
+                <div id="err1" style="color: red; display: none;">feild is empty</div>
                 <label>Priority</label>
                 <br>
                 <select id="prio" required>
@@ -77,9 +77,10 @@
             <option value="Low" id="low">Low</option>
         </select>
                 <br>
-                <div id="err" style="color: red; display: none;">!feild is empty</div>
+                <div id="err" style="color: red; display: none;">feild is empty</div>
                 <input type="submit" id="sub">
                 <input type="submit" id="save" value="Save" style="display:none ;">
+                <input type="reset" id="click" style="display: none;">
             </form>
         </div>
         <div id="tab">
@@ -113,23 +114,54 @@
 
             let name = $("#name").val()
             let prio = $("#prio").val()
-            if (name == "" || prio == "") {
+            if (name == "" && prio == "") {
                 $("#err").css("display", "block ")
+                $("#err1").css("display", "block")
+                return false
+            } else if (name == "") {
+                $("#err1").css("display", "block")
+                $("#err").css("display", "none ")
+                return false
+            } else if (prio == "") {
+                $("#err").css("display", "block")
+                $("#err1").css("display", "none")
                 return false
             } else {
                 $("#err").css("display", "none ")
+                $("#err1").css("display", "none")
                 let obj = {
                     name: name,
                     prio: prio
                 };
                 arr.push(obj)
                 localStorage.setItem("data", JSON.stringify(arr))
+
+                // $('#click').click(function() {
+                //     alert('Task added');
+                // });
+                // setTimeout(function() {
+                //     $('#click').trigger('click');
+                // }, 1000);
+
+
+
+
                 display(arr)
             }
         }
         display(arr)
 
         function display(arr) {
+
+            $('#click').click(function() {
+                // alert('Task added');
+            });
+            setTimeout(function() {
+                $('#click').trigger('click');
+            }, 0000);
+
+
+
 
             $("#app").html("")
             arr.forEach(function(ele, index) {
@@ -149,7 +181,7 @@
                     $(col2).css("background", "green")
                 }
                 let col3 = document.createElement("td")
-                    // col3.innerText = "Delete"
+
                 $(col3).text("Delete")
 
                 $(col3).css("color", "red")
@@ -182,17 +214,18 @@
 
         function editting(ele, index) {
             $("#name").val(ele.name)
+            $("#prio").val(ele.prio)
             $("#save").css("display", "block")
             $("#sub").css("display", "none")
 
             $("#save").click(function() {
                 event.preventDefault()
                 let newval = $("#name").val()
-                console.log(newval);
-                console.log(index);
+                let newval2 = $("#prio").val()
+
                 arr[index].name = newval
-                console.log(arr[index].name);
-                console.log(arr);
+                arr[index].prio = newval2
+
                 display(arr)
                 localStorage.setItem("data", JSON.stringify(arr))
                 $("#save").css("display", "none")
@@ -202,3 +235,16 @@
         }
     })
 </script>
+
+
+
+<!-- 
+$(document).ready(function(){
+    $('#click').click(function(){
+           alert('button clicked');
+       });
+     // set time out 5 sec
+        setTimeout(function(){
+           $('#click').trigger('click');
+       }, 4000);
+   }); -->
